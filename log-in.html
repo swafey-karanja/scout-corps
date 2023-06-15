@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG-IN/SIGN-UP PAGE</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/817f936749.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="form-box">
+        <h1 id="title">SIGN-UP</h1>
+        <form method="post" name = "google-sheet">
+            <div class="input-group">
+                <div class="input-field" id="nameField">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" placeholder="Name" value="" required="">
+                </div>
+
+                <div class="input-field" >
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" placeholder="Email" id="emailLabel" value="" required="" oninput="validateEmail()">
+                </div>
+                <p id="emailerror"></p>
+
+                <div class="input-field">
+                    <i class="fa-solid fa-lock-open"></i>
+                    <input type="password" placeholder="Password" id="password" value="" required="">
+                    <span>
+                        <i class="fa-solid fa-eye" id="showpass" aria-hidden="true" onclick="toggle()"></i>
+                    </span>
+                   
+                </div>
+                <div class="submitBtn" >
+                    <input type="submit" name="submit" >
+    
+                </div>
+                
+            </div>
+            
+            <div class="btn-field">
+                <button type="button" id="signupBtn">Sign Up</button>
+                <button type="button" id="signinBtn" class="disable">Sign In</button>
+            </div>
+            <div class="forgot">
+                <span>Forgot password? <a href="/passchange.html">Click here.</a></span>
+            </div>
+            
+
+           
+        </form>
+    </div>
+
+
+</div>
+<script>
+
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxZMfNk1tcIHDlRhFsyZgUx_38ZswIh_FYd_s04KdvnPD5bqTtV7PXZLQrKvgV1vBtK/exec'
+            const form = document.forms['google-sheet']
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => alert("Form information has been receive.Thank you."))
+                .catch(error => console.error('Error!', error.message))
+            })
+
+    var state = false;
+    function toggle(){
+        if(state){
+            document.getElementById("password").setAttribute("type","password");
+            document.getElementById("showpass").style.color = '#7a797e';
+            state = false;
+        }
+
+        else{
+            document.getElementById("password").setAttribute("type","text");
+            document.getElementById("showpass").style.color = 'green';
+            state = true;
+        }
+    }
+
+    function myfunction(){
+        window.location.href = "";
+    }
+
+
+let signupBtn = document.getElementById("signupBtn");
+let signinBtn = document.getElementById("signinBtn");
+let nameField = document.getElementById("nameField");
+let emailLabel = document.getElementById("emailLabel");
+let emailerror = document.getElementById("emailerror");
+let title = document.getElementById("title");
+
+function validateEmail()
+{
+    if(!emailLabel.value.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)){
+        emailerror.innerHTML = "Invalid email address";
+        return false;
+    }
+
+    emailerror.innerHTML = "";
+    return true;
+
+
+}
+
+
+signinBtn.onclick = function()
+{
+    nameField.style.maxHeight = '0';
+    title.innerHTML = "Sign in";
+    signupBtn.classList.add("disable");
+    signinBtn.classList.remove("disable");
+}
+
+signupBtn.onclick = function()
+{
+    nameField.style.maxHeight = '60px';
+    title.innerHTML = "Sign up";
+    signupBtn.classList.remove("disable");
+    signinBtn.classList.add("disable");
+}
+
+</script>
+
+</body>
+</html>

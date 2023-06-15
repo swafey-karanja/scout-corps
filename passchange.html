@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>password change</title>
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+   
+   <div class="passcontainer">
+   
+    <div class="input-group">
+        <p>Provide your valid registered email address below and a link to reset you password will be sent to it.</p>
+        <label id="email-label"></label>
+        <input type="email" placeholder="EMAIL" spellcheck="false" id="email-field" onkeyup="validateEmail()">
+        <span id="email-error"></span>
+        
+    </div>
+     
+   </div> 
+
+<script>
+    var emailField = document.getElementById("email-field");
+    var emailLabel = document.getElementById("email-label");
+    var emailError = document.getElementById("email-error");
+
+    function validateEmail(){
+        emailLabel.style.bottom = "45px";
+
+        if(!emailField.value.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)){
+            emailError.innerHTML = "Invalid email";
+            emailField.style.borderBottomColor = "red";
+           
+            return false;
+        }
+        emailError.innerHTML = "";
+        emailField.style.borderBottomColor = "green";
+        
+        return true;
+
+    }
+
+
+</script>
+
+</body>
+</html>
